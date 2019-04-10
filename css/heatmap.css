@@ -1,15 +1,11 @@
 rect.bordered {
-    stroke: #E6E6E6;
+    stroke: #333;
     stroke-width:2px;
 }
 
 text {
     font-size: 9pt;
     font-family: Consolas, courier;
-}
-
-text.mono {
-    fill: #aaa;
 }
 
 text.axis-workweek {

@@ -1,5 +1,5 @@
-var margin = { top: 50, right: 0, bottom: 100, left: 30 },
-	width = 960 - margin.left - margin.right,
+var margin = { top: 50, right: 2, bottom: 100, left: 30 },
+	width = $('.container').width() - margin.left - margin.right,
 	height = 430 - margin.top - margin.bottom,
 	gridSize = Math.floor(width / 24),
 	legendElementWidth = gridSize*2,
@@ -8,7 +8,7 @@ var margin = { top: 50, right: 0, bottom: 100, left: 30 },
 	days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
 	times = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select(".heatmap").append("svg")
 	.attr("width", width + margin.left + margin.right)
 	.attr("height", height + margin.top + margin.bottom)
 	.append("g")
@@ -113,14 +113,14 @@ d3.csv("memes.csv",
             var hint = svg.append("text")
                 .attr("class","hint")
                 .attr("x", width - margin.right - 90)
-                .attr("y", height + gridSize / 2)
+                .attr("y", gridSize * 8)
 
             var legend = svg.selectAll(".legend")
                 .data(colors);
 
             legend.enter().append("rect")
                 .attr("x", function(d, i) { return legendElementWidth * i; })
-                .attr("y", height)
+                .attr("y", gridSize * 7 + 25)
                 .attr("width", legendElementWidth)
                 .attr("height", gridSize / 2)
                 .style("fill", d => d);
@@ -129,7 +129,7 @@ d3.csv("memes.csv",
                 .attr("class", "mono")
                 .text((d, i) => "≥ " + ckmeansBreaks[i])
                 .attr("x", function(d, i) { return legendElementWidth * i; })
-                .attr("y", height + gridSize);
+                .attr("y", gridSize * 8 + 15);
 
             legend.exit().remove();
         });

@@ -1,16 +1,46 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-		<title>Memes Heatmap</title>
-		<link href="css/heatmap.css" rel="stylesheet">
-	</head>
-	<body>
-		<script src="https://d3js.org/d3.v5.min.js"></script>
-		<script src="https://d3js.org/d3-array.v2.min.js"></script>
-		<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-		<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
-		<script src='https://unpkg.com/simple-statistics@2.0.0/dist/simple-statistics.min.js'></script>
-		<script src="js/heatmap.js"></script> 
-	</body>
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="Mircea Mialea">
+
+        <title>Meme Times</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+        <!-- Custom CSS -->
+        <link href="css/page.css" rel="stylesheet">
+        <link href="css/heatmap.css" rel="stylesheet">
+
+    </head>
+
+    <body id="page-top">
+        <!-- Header -->
+        <section class="masthead d-flex">
+            <div class="container text-right my-auto">
+                <h3 class="mb-1 mr-4">Meme Times</h3>
+                <div class="heatmap"></div>
+            </div>
+            <div class="overlay"></div>
+        </section>
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+        <!-- Custom scripts for D3.js -->
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/d3-array.v2.min.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+        <script src='https://unpkg.com/simple-statistics@2.0.0/dist/simple-statistics.min.js'></script>
+        <script src="js/heatmap.js"></script> 
+    </body>
+
 </html>
