@@ -4,6 +4,7 @@ var margin = { top: 50, right: 2, bottom: 100, left: 30 },
 	gridSize = Math.floor(width / 24),
 	legendElementWidth = gridSize*2,
 	buckets = 9,
+    cardPadding = 6,
 	colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], // alternatively colorbrewer.YlGnBu[9]
 	days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
 	times = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
@@ -22,7 +23,6 @@ var dayLabels = svg.selectAll(".dayLabel")
 	.attr("y", function (d, i) { return i * gridSize; })
 	.style("text-anchor", "end")
 	.attr("transform", "translate(-6," + gridSize / 1.5 + ")")
-	//.attr("class", function (d, i) { return ((i >= 0 && i <= 4) ? "dayLabel mono axis axis-workweek" : "dayLabel mono axis"); });
 	.attr("class", "dayLabel mono axis axis-workweek");
 
 var timeLabels = svg.selectAll(".timeLabel")
@@ -33,7 +33,6 @@ var timeLabels = svg.selectAll(".timeLabel")
 	.attr("y", 0)
 	.style("text-anchor", "middle")
 	.attr("transform", "translate(" + gridSize / 2 + ", -6)")
-    //.attr("class", function(d, i) { return ((i >= 7 && i <= 16) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); });
 	.attr("class", "dayLabel mono axis axis-workweek");
 
 d3.csv("memes.csv",
@@ -93,13 +92,11 @@ d3.csv("memes.csv",
             cards.append("title");
 
             cards.enter().append("rect")
-                .attr("x", function(d) { return (d.hour) * gridSize; })
-                .attr("y", function(d) { return (d.day) * gridSize; })
-                .attr("rx", 4)
-                .attr("ry", 4)
+                .attr("x", function(d) { return (d.hour) * gridSize + cardPadding / 2; })
+                .attr("y", function(d) { return (d.day) * gridSize + cardPadding / 2; })
                 .attr("class", "hour bordered")
-                .attr("width", gridSize)
-                .attr("height", gridSize)
+                .attr("width", gridSize - cardPadding)
+                .attr("height", gridSize - cardPadding)
                 .style("fill", d => ckColor(d.value))
                 .on("mouseover", d => {
                     svg.select(".hint").text("Memes: " + d.value);
