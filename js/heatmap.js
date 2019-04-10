@@ -1,6 +1,6 @@
-var margin = { top: 50, right: 2, bottom: 100, left: 30 },
+var margin = { top: 50, right: 2, bottom: 0, left: 30 },
 	width = $('.container').width() - margin.left - margin.right,
-	height = 430 - margin.top - margin.bottom,
+	height = 500 - margin.top - margin.bottom,
 	gridSize = Math.floor(width / 24),
 	legendElementWidth = gridSize*2,
 	buckets = 9,
@@ -100,7 +100,6 @@ d3.csv("memes.csv",
                 .style("fill", d => ckColor(d.value))
                 .on("mouseover", d => {
                     svg.select(".hint").text("Memes: " + d.value);
-                    console.log(ckColor(d.value))
                 });
 
             cards.select("title").text(function(d) { return d.value; });
@@ -110,14 +109,14 @@ d3.csv("memes.csv",
             var hint = svg.append("text")
                 .attr("class","hint")
                 .attr("x", width - margin.right - 90)
-                .attr("y", gridSize * 8)
+                .attr("y", gridSize * 9)
 
             var legend = svg.selectAll(".legend")
                 .data(colors);
 
             legend.enter().append("rect")
                 .attr("x", function(d, i) { return legendElementWidth * i; })
-                .attr("y", gridSize * 7 + 25)
+                .attr("y", gridSize * 8)
                 .attr("width", legendElementWidth)
                 .attr("height", gridSize / 2)
                 .style("fill", d => d);
@@ -126,7 +125,7 @@ d3.csv("memes.csv",
                 .attr("class", "mono")
                 .text((d, i) => "≥ " + ckmeansBreaks[i])
                 .attr("x", function(d, i) { return legendElementWidth * i; })
-                .attr("y", gridSize * 8 + 15);
+                .attr("y", gridSize * 9 );
 
             legend.exit().remove();
         });
