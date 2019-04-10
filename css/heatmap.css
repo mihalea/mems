@@ -3,9 +3,12 @@ rect.bordered {
     stroke-width:2px;
 }
 
-text.mono {
+text {
     font-size: 9pt;
     font-family: Consolas, courier;
+}
+
+text.mono {
     fill: #aaa;
 }
 

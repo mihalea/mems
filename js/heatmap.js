@@ -53,25 +53,39 @@ d3.csv("memes.csv",
             var rolled = d3.rollup(data, d => d.length, d => d.weekday, d => d.hour);
             values = []
             rolled.forEach((wd_arr, wd, mw) => {
+                hours = new Array(24);
                 wd_arr.forEach((count, hr, mh) => {
                     values.push({
                         day: wd,
                         hour: hr,
                         value: count
                     });
+
+                    hours[hr] = true;
                 });
+
+                for (var i = 0 ; i < hours.length ; i++) {
+                    if (!hours[i]) {
+                        values.push({
+                            day: wd,
+                            hour: i,
+                            value: 0
+                        });
+                    }
+                }
             });
 
             const ckmeansClusters = ss.ckmeans(values.map(d => d.value), buckets);
             const ckmeansBreaks = ckmeansClusters.map(d => d3.min(d));
 
-			var ckColor = function(value) {
-				var idx = 0;
-				while (idx < ckmeansBreaks.length && ckmeansBreaks[idx] < value) {
-					idx++;
-				}
-				return colors[idx];
-			};
+            var ckColor = function(value) {
+                var idx = 0;
+                while (idx + 1 < ckmeansBreaks.length && ckmeansBreaks[idx] < value && ckmeansBreaks[idx + 1] <= value) {
+                    idx++;
+                }
+
+                return colors[idx];
+            };
 
             var cards = svg.selectAll(".hour")
                 .data(values, function(d) {return d.day+':'+d.hour;});
@@ -86,17 +100,23 @@ d3.csv("memes.csv",
                 .attr("class", "hour bordered")
                 .attr("width", gridSize)
                 .attr("height", gridSize)
-                .style("fill", d => ckColor(d.value));
+                .style("fill", d => ckColor(d.value))
+                .on("mouseover", d => {
+                    svg.select(".hint").text("Memes: " + d.value);
+                    console.log(ckColor(d.value))
+                });
 
             cards.select("title").text(function(d) { return d.value; });
 
             cards.exit().remove();
 
+            var hint = svg.append("text")
+                .attr("class","hint")
+                .attr("x", width - margin.right - 90)
+                .attr("y", height + gridSize / 2)
+
             var legend = svg.selectAll(".legend")
                 .data(colors);
-
-            legend.enter().append("g")
-                .attr("class", "legend");
 
             legend.enter().append("rect")
                 .attr("x", function(d, i) { return legendElementWidth * i; })
